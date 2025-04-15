@@ -26,10 +26,9 @@ function abrirCamara() {
     // Inicia el escáner de QR
     html5QrCode.start(
         { facingMode: "environment" },
-        { fps: 10, qrbox: { width: 200, height: 200 } },
-        (decodedText, decodedResult) => {
-            console.log("QR detectado:", decodedText);
-            procesarQr(decodedText, html5QrCode);
+        { fps: 10, qrbox: { width: 200, height: 200 }, // más grande
+            aspectRatio: 1.0,
+            disableFlip: true, // mejora detección en móviles
         },
         (errorMessage) => {
             console.log("Error en el escaneo: ", errorMessage);
