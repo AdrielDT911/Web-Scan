@@ -13,13 +13,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('cancelButton').addEventListener('click', cerrarCamara);
 });
 
+let html5QrCode = null; // Declaramos esta variable globalmente
+
 // Función para abrir el modal y mostrar la cámara
 function abrirCamara() {
     const modal = document.getElementById("cameraModal");
     const qrReader = document.getElementById("qr-reader");
     mostrarModal(modal);
-    
-    const html5QrCode = new Html5Qrcode("qr-reader"); 
+
+    html5QrCode = new Html5Qrcode("qr-reader"); // Inicializamos aquí
 
     // Inicia el escáner de QR
     html5QrCode.start(
@@ -42,10 +44,19 @@ function mostrarModal(modal) {
     modal.classList.add("show");
 }
 
-// Función para ocultar el modal
+// Función para ocultar el modal y detener el escáner de QR
 function cerrarCamara() {
     const modal = document.getElementById("cameraModal");
     modal.classList.remove("show");
+
+    // Detenemos el escáner y la cámara
+    if (html5QrCode) {
+        html5QrCode.stop().then(() => {
+            console.log("Escáner detenido");
+        }).catch((err) => {
+            console.error("Error al detener el escáner:", err);
+        });
+    }
 }
 
 // Función para procesar el QR
@@ -81,5 +92,3 @@ function procesarQr(decodedText, html5QrCode) {
         alert("Error al procesar el QR: " + e.message);
     }
 }
-
-
