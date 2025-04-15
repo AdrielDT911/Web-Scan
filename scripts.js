@@ -26,7 +26,7 @@ function abrirCamara() {
     // Inicia el escáner de QR
     html5QrCode.start(
         { facingMode: "environment" },
-        { fps: 10, qrbox: { width: 150, height: 150 } },
+        { fps: 10, qrbox: { width: 250, height: 250 } },
         (decodedText, decodedResult) => {
             console.log("QR detectado:", decodedText);
             procesarQr(decodedText, html5QrCode);
