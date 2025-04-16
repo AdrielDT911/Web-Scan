@@ -26,7 +26,7 @@ function abrirCamara() {
     // Inicia el escáner de QR
     html5QrCode.start(
         { facingMode: "environment" },
-        { fps: 10, qrbox: { width: 250, height: 250 }, aspectRatio: 1.0, disableFlip: true},
+        { fps: 10, qrbox: { width: 200, height: 200 }, aspectRatio: 1.0, disableFlip: true},
         (decodedText, decodedResult) => {
             console.log("QR detectado:", decodedText);
             procesarQr(decodedText, html5QrCode);
@@ -72,7 +72,7 @@ function procesarQr(decodedText, html5QrCode) {
 
         alert("ID capturado: " + cdcid);
 
-        fetch("http://192.168.5.48:8000/qr/guardar-cdc", {
+        fetch("https://qr-api-production-adac.up.railway.app/qr/guardar-cdc", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ cdc_id: cdcid })
